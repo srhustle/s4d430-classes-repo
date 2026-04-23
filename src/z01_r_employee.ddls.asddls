@@ -1,8 +1,9 @@
 @AbapCatalog:{
     dataMaintenance: #RESTRICTED,// Restrict view data preview
-    viewEnhancementCategory: [#NONE]
+    viewEnhancementCategory: [#PROJECTION_LIST],
+    extensibility.dataSources: [ 'Employee' ],
+    extensibility.elementSuffix: 'ZEN'
 }
-
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @ObjectModel:{
     usageType:{
@@ -14,7 +15,7 @@
 @EndUserText.label: 'Z01_R_Employee view consume data from my employee data'
 @Metadata.ignorePropagatedAnnotations: true
 define view entity Z01_R_Employee
-  as select from z01employ
+  as select from z01employ as Employee
   association[1..1] to Z01_R_Department as _Department
   on $projection.DepartmentId = _Department.Id
 {
